@@ -3,7 +3,6 @@
 	"description": "The Fluent Messaging client library",
 	"require": {},
     "autoload": {
-    	"classmap": ["src/library"]
         "psr-0": {
             "Fluent": "src/library"
         }
