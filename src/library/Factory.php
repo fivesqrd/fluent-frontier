@@ -1,5 +1,5 @@
 <?php
-namspace Fluent;
+namespace Fluent;
 
 class Factory
 {
