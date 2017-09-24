@@ -48,7 +48,7 @@ class Api
         curl_setopt($this->_curl, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($this->_curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($this->_curl, CURLOPT_USERPWD, $this->_key . ':' . $this->_secret);
-        curl_setopt($this->_curl, CURLOPT_USERAGENT, 'Fluent-Library-PHP-v' . \Fluent::VERSION);
+        curl_setopt($this->_curl, CURLOPT_USERAGENT, 'Fluent-Library-PHP-v' . Factory::VERSION);
         
         switch ($method) {
             case 'create':
@@ -91,17 +91,21 @@ class Api
         $this->_log('Got response: ' . $response_body);
         
         if(curl_error($this->_curl)) {
-            throw new \Fluent\Exception("API call to " . $url . " failed: " . curl_error($this->_curl));
+            throw new Exception(
+                "API call to " . $url . " failed: " . curl_error($this->_curl)
+            );
         }
 
         $result = json_decode($response_body);
 
         if ($result === null) {
-            throw new \Fluent\Exception('We were unable to decode the JSON response from the Fluent API: ' . $response_body);
+            throw new Exception(
+                'We were unable to decode the JSON response from the Fluent API: ' . $response_body
+            );
         }
 
         if (floor($info['http_code'] / 100) >= 4) {
-            throw new \Fluent\Exception("{$info['http_code']}, " . $result->message);
+            throw new Exception("{$info['http_code']}, " . $result->message);
         }
 
         return $result;

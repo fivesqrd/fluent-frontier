@@ -4,6 +4,9 @@
 	"require": {},
     "autoload": {
     	"classmap": ["src/library"]
+        "psr-0": {
+            "Fluent": "src/library"
+        }
     },
     "license": ["MIT"],
     "authors": [

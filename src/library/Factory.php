@@ -1,6 +1,7 @@
 <?php
+namspace Fluent;
 
-class Fluent
+class Factory
 {
     public static $defaults = array(
         'key'       => null,
@@ -12,7 +13,7 @@ class Fluent
         'storage'   => 'sqlite'
     );
 
-    const VERSION = '3.3';
+    const VERSION = '3.4';
     
     /**
      * @param string $content
