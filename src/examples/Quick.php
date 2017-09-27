@@ -1,25 +1,21 @@
 <?php
 
-// Ensure library/ is on include_path
-set_include_path(implode(PATH_SEPARATOR, array(
-    realpath(__DIR__ . '/../library'),
-    get_include_path(),
-)));
+define('FLUENT_PATH', realpath(__DIR__ . '/../library'));
 
-require_once 'Fluent.php';
-require_once 'Fluent/Api.php';
-require_once 'Fluent/Exception.php';
-require_once 'Fluent/Content.php';
-require_once 'Fluent/Content/Markup.php';
-require_once 'Fluent/Message.php';
-require_once 'Fluent/Message/Create.php';
-require_once 'Fluent/Transport.php';
-require_once 'Fluent/Transport/Remote.php';
-require_once 'Fluent/Transport/Local.php';
-require_once 'Fluent/Storage.php';
-require_once 'Fluent/Storage/Sqlite.php';
+require_once FLUENT_PATH . '/Factory.php';
+require_once FLUENT_PATH . '/Api.php';
+require_once FLUENT_PATH . '/Exception.php';
+require_once FLUENT_PATH . '/Content.php';
+require_once FLUENT_PATH . '/Content/Markup.php';
+require_once FLUENT_PATH . '/Message.php';
+require_once FLUENT_PATH . '/Message/Create.php';
+require_once FLUENT_PATH . '/Transport.php';
+require_once FLUENT_PATH . '/Transport/Remote.php';
+require_once FLUENT_PATH . '/Transport/Local.php';
+require_once FLUENT_PATH . '/Storage.php';
+require_once FLUENT_PATH . '/Storage/Sqlite.php';
 
-Fluent::$defaults = array(
+$defaults = array(
     //'key'      => '9fe630283b5a62833b04023c20e43915',
     //'secret'   => 'test',
     'key'       => '60ced422',
@@ -37,7 +33,7 @@ $numbers = array(
 );
 
 try {
-    $messageId = Fluent::message()->create()
+    $messageId = Fluent\Factory::message($defaults)->create()
         ->addParagraph('We have just processed your monthly payment for Musixmatch monthly subscription (10 Feb - 9 Mar).')
         ->addNumber($numbers)
         ->addButton('http://www.myinvoices.com', 'Download Invoice')
