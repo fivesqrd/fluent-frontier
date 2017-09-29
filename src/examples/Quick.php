@@ -34,12 +34,12 @@ $numbers = array(
 
 try {
     $messageId = Fluent\Factory::message($defaults)->create()
-        ->addParagraph('We have just processed your monthly payment for Musixmatch monthly subscription (10 Feb - 9 Mar).')
-        ->addNumber($numbers)
-        ->addButton('http://www.myinvoices.com', 'Download Invoice')
-        ->addParagraph('Please note the transaction will reflect on your statement as <b>"Musixmatch"</b>. Please <a href="#">contact us</a> if you have any questions about this receipt or your account.')
-        ->setTeaser('This is a test receipt teaser.')
-        ->setTitle('Receipt')
+        ->paragraph('We have just processed your monthly payment for Musixmatch monthly subscription (10 Feb - 9 Mar).')
+        ->number($numbers)
+        ->button('http://www.myinvoices.com', 'Download Invoice')
+        ->paragraph('Please note the transaction will reflect on your statement as <b>"Musixmatch"</b>. Please <a href="#">contact us</a> if you have any questions about this receipt or your account.')
+        ->teaser('This is a test receipt teaser.')
+        ->title('Receipt')
         ->subject('Test E-mail Receipt')
         ->header('Reply-To', 'christianjburger@me.com')
         ->to('christianjburger@gmail.com')

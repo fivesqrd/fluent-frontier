@@ -25,9 +25,9 @@ class Markup
      * @param string $text
      * @return \Fluent\Content\Markup
      */
-    public function setTitle($text)
+    public function title($text)
     {
-        $this->_content->appendChild(new \DOMElement('title', htmlentities($text)));
+        $this->_title = $text;
         return $this;
     }
     
@@ -35,7 +35,7 @@ class Markup
      * @param string $text
      * @return \Fluent\Content\Markup
      */
-    public function addParagraph($text)
+    public function paragraph($text)
     {
         $element = new \DOMElement('paragraph');
         $this->_content->appendChild($element);
@@ -47,7 +47,7 @@ class Markup
      * @param array $numbers Up to 3 number/caption pairs
      * @return \Fluent\Content\Markup
      */
-    public function addNumber(array $numbers)
+    public function number(array $numbers)
     {
         if (array_key_exists('value', $numbers)) {
             /* we have been given one number only */
@@ -63,6 +63,19 @@ class Markup
             );
         }
 
+        return $this;
+    }
+
+    /**
+     * @param string $href
+     * @param string $text
+     * @return \Fluent\Content\Markup
+     */
+    public function button($href, $text)
+    {
+        $element = new \DOMElement('button', htmlentities($text));
+        $this->_content->appendChild($element);
+        $element->setAttribute('href', $href);
         return $this;
     }
 
@@ -87,38 +100,31 @@ class Markup
     {
         return $this->_content->ownerDocument->createCDATASection($text);
     }
-    
-    /**
-     * @param string $href
-     * @param string $text
-     * @return \Fluent\Content\Markup
-     */
-    public function addButton($href, $text)
-    {
-        $element = new \DOMElement('button', htmlentities($text));
-        $this->_content->appendChild($element);
-        $element->setAttribute('href', $href);
-        return $this;
-    }
-
-    public function getFormat()
-    {
-        return 'markup';
-    }
 
     /**
      * @return string
      */
     public function toString()
     {
+        if ($this->_title) {
+            $this->_content->appendChild(
+                new \DOMElement('title', htmlentities($this->_title))
+            );
+        }
+
         $doc = $this->_content->ownerDocument;
         return $doc->saveXml();
     }
 
-    public function setTeaser($text)
+    public function teaser($text)
     {
         $this->_teaser = $text;
         return $this;
+    }
+
+    public function getFormat()
+    {
+        return 'markup';
     }
     
     public function getTeaser()
