@@ -42,6 +42,18 @@ class Markup
         $element->appendChild($this->_getCData($text));
         return $this;
     }
+
+    /**
+     * @param string $text
+     * @return \Fluent\Content\Markup
+     */
+    public function segment($string)
+    {
+        $element = new \DOMElement('paragraph');
+        $this->_content->appendChild($element);
+        $element->appendChild($this->_getCData($string));
+        return $this;
+    }
     
     /**
      * @param array $numbers Up to 3 number/caption pairs

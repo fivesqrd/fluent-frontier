@@ -10,6 +10,7 @@ namespace Fluent\Message;
  * @method \Fluent\Message\Create button(string $href, string $text)
  * @method \Fluent\Message\Create number(array $numbers)
  * @method \Fluent\Message\Create teaser(string $value)
+ * @method \Fluent\Message\Create segment(string $value)
  */
 
 use Fluent\Content;
