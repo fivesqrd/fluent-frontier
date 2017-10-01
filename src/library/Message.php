@@ -24,14 +24,22 @@ class Message
     }
 
     /**
-     * @param int $id
+     * @param string $id
+     * @return \Fluent\Message\Resend
+     */
+    public function resend($id)
+    {
+        return new Message\Resend($id, $this->_defaults);
+    }
+
+    /**
+     * @param string $id
      * @return \Fluent\Message\Get
      */
     public function get($id)
     {
         return new Message\Get(
-            new \Fluent\Api($this->_defaults['key'], $this->_defaults['secret']),
-            $id
+            new \Fluent\Api($this->_defaults['key'], $this->_defaults['secret']), $id
         );
     } 
 

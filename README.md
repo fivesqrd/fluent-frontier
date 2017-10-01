@@ -12,6 +12,8 @@ Programmatic approach to generating and sending responsive user notifications vi
 php composer.phar require fivesqrd/fluent:3.4
 ```
 
+We have a package for Laravel projects here: https://github.com/Five-Squared/Fluent-Laravel
+
 ### Quick Examples ###
 Create and send a message:
 ```
@@ -24,16 +26,59 @@ $messageId = Fluent::message()->create()
     ->teaser('This is a teaser')
     ->subject('Testing it')
     ->header('Reply-To', 'me@myapp.com')
+    ->from('me@myapp.com', 'My App')
     ->to('user@theirdomain.com')
     ->send();
 ```
 
+### Resending a message
+```
+$response = Fluent::message()->resend($messageId)
+    ->to('other@theirdomain.com')
+    ->send();
+```
 
-Find problematic events related to a user's email adress:
+### Retrieving a sent message
+```
+$response = Fluent::message()->get($messageId)->fetch();
+```
+
+### Searching sent messages
+```
+$response = Fluent::message()->find()
+    ->from('me@myapp.com')
+    ->to('user@theirdomain.com')
+    ->since(date('Y-m-d H:i:s', strtotime('-2 days ago')))
+    ->fetch();
+```
+
+### Find events
 ```
 $response = Fluent::event()->find()
     ->to('user@theirdomain.com')
-    ->since(date('Y-m-d H:i:s', $timeframe))
+    ->since(date('Y-m-d H:i:s', strtotime('-2 days ago')))
     ->type(['hard_bounce', 'soft_bounce', 'reject'])
     ->fetch();
+```
+
+
+### Other Use Cases ###
+Somtimes you need to send plain text emails. Fluent provides a way to do this:
+```
+$messageId = Fluent::message()->create('This is my plain text message body')
+    ->subject('Testing it')
+    ->header('Reply-To', 'me@myapp.com')
+    ->to('user@theirdomain.com')
+    ->send();
+```
+
+Sometimes you may want to create a completely custom HTML message:
+```
+$html = '<html><body><p>This is my plain text message body</p></html></body>';
+
+$messageId = Fluent::message()->create(new Fluent\Content\Raw($html))
+    ->subject('Testing it')
+    ->header('Reply-To', 'me@myapp.com')
+    ->to('user@theirdomain.com')
+    ->send();
 ```

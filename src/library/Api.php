@@ -40,47 +40,48 @@ class Api
     
     public function call($resource, $method, $params)
     {
-        $payload = http_build_query($params);
-        
         $url = $this->getEndpoint() . '/' . $resource;
+
+        /* Determine the right method handler for this request */
         
-        curl_setopt($this->_curl, CURLOPT_VERBOSE, $this->isDebugOn());
-        curl_setopt($this->_curl, CURLOPT_FOLLOWLOCATION, true);
-        curl_setopt($this->_curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($this->_curl, CURLOPT_USERPWD, $this->_key . ':' . $this->_secret);
-        curl_setopt($this->_curl, CURLOPT_USERAGENT, 'Fluent-Library-PHP-v' . Factory::VERSION);
-        
-        switch ($method) {
-            case 'create':
-                curl_setopt($this->_curl, CURLOPT_POSTFIELDS, $payload);
-                curl_setopt($this->_curl, CURLOPT_POST, true);
-                break;
-            case 'get':
-                $url .= '/' . $params['id'];
-                break;
-            case 'index':
-                $url .= ($payload) ? '?' . $payload : null;
-                break;
-            default:
-                if (!array_key_exists('id', $params)) {
-                    throw new Exception('id missing from REST RPC call');
-                }
-                $url .= '/' . $params['id'] . '/' . $method;
-                break;
+        $handler = $this->_getMethodHandler($method, $url, $params);
+
+        /* Set all the curl options */
+
+        foreach ($this->_getCurlOptions($handler) as $key => $value) {
+            
+            curl_setopt($this->_curl, $key, $value);
+
         }
 
-        curl_setopt($this->_curl, CURLOPT_URL, $url);
-        
+        /* Send the request and get a response */
+
+        $response = $this->_getResponse($url);
+
+        if ($response === null) {
+            throw new Exception(
+                'We were unable to decode the JSON response from the Fluent API: ' . json_encode($response)
+            );
+        }
+
+        return $response;
+    }
+
+    protected function _getResponse($url)
+    {
         $start = microtime(true);
-        $this->_log('Call to ' . $url . ': ' . $payload);
+
+        $this->_log('Call to ' . $url);
+
         if ($this->isDebugOn()) {
             $curl_buffer = fopen('php://memory', 'w+');
             curl_setopt($this->_curl, CURLOPT_STDERR, $curl_buffer);
         }
         
-        $response_body = curl_exec($this->_curl);
+        $body = curl_exec($this->_curl);
         $info = curl_getinfo($this->_curl);
         $time = microtime(true) - $start;
+
         if ($this->isDebugOn()) {
             rewind($curl_buffer);
             $this->_log(stream_get_contents($curl_buffer));
@@ -88,30 +89,64 @@ class Api
         }
         
         $this->_log('Completed in ' . number_format($time * 1000, 2) . 'ms');
-        $this->_log('Got response: ' . $response_body);
+        $this->_log('Got response: ' . $body);
         
-        if(curl_error($this->_curl)) {
+        if (curl_error($this->_curl)) {
             throw new Exception(
                 "API call to " . $url . " failed: " . curl_error($this->_curl)
             );
         }
-
-        $result = json_decode($response_body);
-
-        if ($result === null) {
-            throw new Exception(
-                'We were unable to decode the JSON response from the Fluent API: ' . $response_body
-            );
-        }
-
+        
         if (floor($info['http_code'] / 100) >= 4) {
-            throw new Exception("{$info['http_code']}, " . $result->message);
+            throw new Exception("{$info['http_code']}, " . $response->message);
         }
 
-        return $result;
+        return json_decode($body);
+    }
+
+    protected function _getCurlOptions($handler)
+    {
+        $options = [
+            CURLOPT_VERBOSE        => $this->isDebugOn(),
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_USERPWD        => $this->_key . ':' . $this->_secret,
+            CURLOPT_USERAGENT      => 'Fluent-Library-PHP-v' . Factory::VERSION
+        ];
+
+
+        foreach ($handler->getOptions() as $key => $value) {
+            $options[$key] = $value;
+        }
+
+        return $options;
+    }
+
+    protected function _getMethodHandler($method, $url, $params)
+    {
+        switch ($method) {
+            case 'create':
+                $handler = new Api\Method\Create($url, $params);
+                break;
+            case 'update':
+                $handler = new Api\Method\Update($url, $params);
+                break;
+            case 'get':
+                $handler = new Api\Method\Get($url, $params);
+                break;
+            case 'index':
+                $handler = new Api\Method\Index($url, $params);
+                break;
+            default:
+                $handler = new Api\Method\Rpc($url, $params, $method);
+                break;
+        }
+
+        return $handler;
     }
     
-    protected function _log($msg) {
+    protected function _log($msg) 
+    {
         if ($this->isDebugOn()) {
             error_log($msg);
         }

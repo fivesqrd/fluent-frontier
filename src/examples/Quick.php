@@ -1,19 +1,6 @@
 <?php
 
-define('FLUENT_PATH', realpath(__DIR__ . '/../library'));
-
-require_once FLUENT_PATH . '/Factory.php';
-require_once FLUENT_PATH . '/Api.php';
-require_once FLUENT_PATH . '/Exception.php';
-require_once FLUENT_PATH . '/Content.php';
-require_once FLUENT_PATH . '/Content/Markup.php';
-require_once FLUENT_PATH . '/Message.php';
-require_once FLUENT_PATH . '/Message/Create.php';
-require_once FLUENT_PATH . '/Transport.php';
-require_once FLUENT_PATH . '/Transport/Remote.php';
-require_once FLUENT_PATH . '/Transport/Local.php';
-require_once FLUENT_PATH . '/Storage.php';
-require_once FLUENT_PATH . '/Storage/Sqlite.php';
+require_once __DIR__ . '/_bootstrap.php';
 
 $defaults = array(
     //'key'      => '9fe630283b5a62833b04023c20e43915',
