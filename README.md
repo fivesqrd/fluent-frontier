@@ -23,9 +23,40 @@ $messageId = Fluent::message()->create()
     ->number(['caption' => 'Today', value => date('j M Y')])
     ->button('http://www.mypony.com', 'Like my pony')
     ->paragraph('Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.')
+    ->subject('Testing it')
+    ->from('me@myapp.com', 'My App')
+    ->to('user@theirdomain.com')
+    ->send();
+```
+
+Sending with custom headers
+```
+$messageId = Fluent::message()->create()
+    ->title('My little pony')
+    ->paragraph('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ornare pellentesque neque non rutrum. Sed a sagittis lacus.')
+    ->number(['caption' => 'Today', value => date('j M Y')])
+    ->button('http://www.mypony.com', 'Like my pony')
+    ->paragraph('Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.')
     ->teaser('This is a teaser')
     ->subject('Testing it')
     ->header('Reply-To', 'me@myapp.com')
+    ->from('me@myapp.com', 'My App')
+    ->to('user@theirdomain.com')
+    ->send();
+```
+
+
+Sending with attachments
+```
+$messageId = Fluent::message()->create()
+    ->title('My little pony')
+    ->paragraph('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ornare pellentesque neque non rutrum. Sed a sagittis lacus.')
+    ->number(['caption' => 'Today', value => date('j M Y')])
+    ->button('http://www.mypony.com', 'Like my pony')
+    ->paragraph('Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.')
+    ->teaser('This is a teaser')
+    ->subject('Testing it')
+    ->attach('My-Attachment.pdf', 'application/pdf', file_get_contents($file))
     ->from('me@myapp.com', 'My App')
     ->to('user@theirdomain.com')
     ->send();
