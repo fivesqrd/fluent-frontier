@@ -12,7 +12,7 @@ Programmatic approach to generating and sending responsive user notifications vi
 php composer.phar require fivesqrd/fluent:3.4
 ```
 
-We have a package for Laravel projects here: https://github.com/Five-Squared/Fluent-Laravel
+We provide a package for Laravel projects here: https://github.com/Five-Squared/Fluent-Laravel
 
 ### Quick Examples ###
 Create and send a message:
@@ -51,10 +51,6 @@ Sending with attachments
 $messageId = Fluent::message()->create()
     ->title('My little pony')
     ->paragraph('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ornare pellentesque neque non rutrum. Sed a sagittis lacus.')
-    ->number(['caption' => 'Today', value => date('j M Y')])
-    ->button('http://www.mypony.com', 'Like my pony')
-    ->paragraph('Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.')
-    ->teaser('This is a teaser')
     ->subject('Testing it')
     ->attach('My-Attachment.pdf', 'application/pdf', file_get_contents($file))
     ->from('me@myapp.com', 'My App')
@@ -63,6 +59,7 @@ $messageId = Fluent::message()->create()
 ```
 
 ### Resending a message
+Resend the original message. Optionally specify a different recipient.
 ```
 $response = Fluent::message()->resend($messageId)
     ->to('other@theirdomain.com')
@@ -84,6 +81,7 @@ $response = Fluent::message()->find()
 ```
 
 ### Find events
+Get delivery progress updates for a particular recipient address
 ```
 $response = Fluent::event()->find()
     ->to('user@theirdomain.com')
@@ -91,7 +89,6 @@ $response = Fluent::event()->find()
     ->type(['hard_bounce', 'soft_bounce', 'reject'])
     ->fetch();
 ```
-
 
 ### Other Use Cases ###
 Somtimes you need to send plain text emails. Fluent provides a way to do this:
