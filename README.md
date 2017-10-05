@@ -23,6 +23,8 @@ The current supported UI components are:
 7. Segments - custom HTML to be displayed
 8. Footer - a line of text at the bottom for an address, opt out, etc
 
+### Sample Email Layout ###
+Below is a sample of an email layout that uses some of the UI components
 ![alt text](https://github.com/Five-Squared/Fluent-Library-PHP/blob/3.4/mockups/Layout-640x960.png "Responsive e-mail layout")
 
 ### Install ###
