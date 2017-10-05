@@ -9,6 +9,10 @@ Wrapper of pre-built responsive email components. Great for user notifications l
 
 ![alt text](https://github.com/Five-Squared/Fluent-Library-PHP/blob/3.4/mockups/Responsive-Email-On-Apple-Devices.png "Responsive e-mail layout")
 
+### Live Demo ###
+
+To see a sample in your inbox head on over to http://fluentmsg.com and send a test email to your self.
+
 ### UI Compents ###
 Fluent provides a single column responsive email layout with support for several types of UI components. By combining the various UI components together, one can easily generate many of the most common types of user notifications needed for a project. Each component occupies the full width of the layout and is stacked on top of each other. 
 
@@ -17,7 +21,7 @@ The current supported UI components are:
 1. Teaser - a short piece of text displayed on the list of view of most email clients
 2. Logo - image displayed at the top of a message
 3. Title - heading inside the message body
-4. Paragraphs - sections of text seperated by decent helping of nothing
+4. Paragraphs - sections of text seperated by decent helping of space
 5. Numbers - highlight a numeric value with a caption
 6. Buttons - call to action button
 7. Segments - custom HTML to be displayed
@@ -32,12 +36,8 @@ Below is a sample of an email layout that uses some of the UI components
 php composer.phar require fivesqrd/fluent:3.4
 ```
 
-
 For Laravel projects there is an easy to install package available here: https://github.com/Five-Squared/Fluent-Laravel
 
-### Live Demo ###
-
-To see a sample in your inbox head on over to http://fluentmsg.com and send a test email to your self.
 
 ### Quick Examples ###
 Create and send a message:
