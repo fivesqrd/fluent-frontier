@@ -12,7 +12,6 @@ Wrapper of pre-built responsive email components. Great for user notifications l
 ### UI Compents ###
 Fluent provides a single column responsive email layout with support for several types of UI components. By combining the various UI components together, one can easily generate many of the most common types of user notifications needed for a project. Each component occupies the full width of the layout and is stacked on top of each other. 
 
-![alt text](https://github.com/Five-Squared/Fluent-Library-PHP/blob/3.4/mockups/Layout-640x960.png "Responsive e-mail layout")
 
 The current supported UI components are:
 1. Teaser - a short piece of text displayed on the list of view of most email clients
@@ -24,6 +23,7 @@ The current supported UI components are:
 7. Segments - custom HTML to be displayed
 8. Footer - a line of text at the bottom for an address, opt out, etc
 
+![alt text](https://github.com/Five-Squared/Fluent-Library-PHP/blob/3.4/mockups/Layout-640x960.png "Responsive e-mail layout")
 
 ### Install ###
 ```
@@ -42,10 +42,10 @@ Create and send a message:
 ```
 $messageId = Fluent::message()->create()
     ->title('My little pony')
-    ->paragraph('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ornare pellentesque neque non rutrum. Sed a sagittis lacus.')
+    ->paragraph('Lorem ipsum dolor sit amet, consectetur adipiscing elit.')
     ->number(['caption' => 'Today', value => date('j M Y')])
     ->button('http://www.mypony.com', 'Like my pony')
-    ->paragraph('Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.')
+    ->paragraph('Pellentesque habitant morbi tristique senectus et netus et malesuada fames.')
     ->subject('Testing it')
     ->from('me@myapp.com', 'My App')
     ->to('user@theirdomain.com')
@@ -56,7 +56,7 @@ Sending with custom headers
 ```
 $messageId = Fluent::message()->create()
     ->title('My little pony')
-    ->paragraph('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ornare pellentesque neque non rutrum. Sed a sagittis lacus.')
+    ->paragraph('Lorem ipsum dolor sit amet, consectetur adipiscing elit.')
     ->subject('Testing it')
     ->header('Reply-To', 'me@myapp.com')
     ->from('me@myapp.com', 'My App')
@@ -69,7 +69,7 @@ Sending with attachments
 ```
 $messageId = Fluent::message()->create()
     ->title('My little pony')
-    ->paragraph('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ornare pellentesque neque non rutrum. Sed a sagittis lacus.')
+    ->paragraph('Lorem ipsum dolor sit amet, consectetur adipiscing elit.')
     ->subject('Testing it')
     ->attach('My-Attachment.pdf', 'application/pdf', file_get_contents($file))
     ->from('me@myapp.com', 'My App')
@@ -81,7 +81,7 @@ Added segments of custom HTML
 ```
 $messageId = Fluent::message()->create()
     ->title('My little pony')
-    ->paragraph('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ornare pellentesque neque non rutrum. Sed a sagittis lacus.')
+    ->paragraph('Lorem ipsum dolor sit amet, consectetur adipiscing elit.')
     ->segment('<table><tr><td>23 May</td><td>Concert at the park</td><td align="right">$30.00</td></tr></table>')
     ->subject('Testing it')
     ->from('me@myapp.com', 'My App')
@@ -109,12 +109,12 @@ $messageId = Fluent::message()->create()
 ```
 $messageId = Fluent::message()->create()
     ->title('Welcome')
-    ->paragraph('Many thanks for you signing up for a trial of Appsome. We're happy to have you.')
+    ->paragraph('Many thanks for you signing up for a trial of Click Science. We're happy to have you.')
     ->paragraph('To get started be sure to check out your account by logging into the admin console.')
     ->button('http://www.fluentmsg.com', 'Admin Console')
     ->paragraph('If you need anything at all just reply to this email and we\'ll be happy to help.')
     ->teaser('Thanks for you signing up')
-    ->subject('Welcome to Appsome')
+    ->subject('Welcome to Click Science')
     ->header('Reply-To', 'support@myproject.com')
     ->to('user@theirdomain.com')
     ->send();
@@ -123,7 +123,7 @@ $messageId = Fluent::message()->create()
 ```
 $messageId = Fluent::message()->create()
     ->title('Password Reset')
-    ->paragraph('We have received a request to change the password for your Appsome account. If you requested this change, please follow the link below to reset your password.')
+    ->paragraph('We have received a request to change the password for your Click Science account. If you requested this change, please follow the link below to reset your password.')
     ->button($href, 'Reset Password')
     ->paragraph('If you did not send this request, you may safely ignore this message and your password will remain unchanged.');
     ->teaser('Instructions for resetting your password')
