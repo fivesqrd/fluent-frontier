@@ -11,7 +11,7 @@ Wrapper of pre-built responsive email components. Great for user notifications l
 
 ### Live Demo ###
 
-To see a sample in your inbox head on over to http://fluentmsg.com and send a test email to your self.
+To see a real sample in your inbox, head on over to http://fluentmsg.com and send a test email to yourself.
 
 ### UI Compents ###
 Fluent provides a single column responsive email layout with support for several types of UI components. By combining the various UI components together, one can easily generate many of the most common types of user notifications needed for a project. Each component occupies the full width of the layout and is stacked on top of each other. 
