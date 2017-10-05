@@ -7,10 +7,12 @@ Wrapper of pre-built responsive email components. Great for user notifications l
 - Less time wrestling with CSS inlining
 - Responsive out of the box
 
-![alt text](http://fluentmsg.com/img/Responsive-Email-On-Apple-Devices.png "Responsive e-mail layout")
+![alt text](https://github.com/Five-Squared/Fluent-Library-PHP/blob/3.4/mockups/Responsive-Email-On-Apple-Devices.png "Responsive e-mail layout")
 
 ### UI Compents ###
 Fluent provides a single column responsive email layout with support for several types of UI components. By combining the various UI components together, one can easily generate many of the most common types of user notifications needed for a project. Each component occupies the full width of the layout and is stacked on top of each other. 
+
+![alt text](https://github.com/Five-Squared/Fluent-Library-PHP/blob/3.4/mockups/Layout-640x960.png "Responsive e-mail layout")
 
 The current supported UI components are:
 1. Teaser - a short piece of text displayed on the list of view of most email clients
@@ -27,6 +29,7 @@ The current supported UI components are:
 ```
 php composer.phar require fivesqrd/fluent:3.4
 ```
+
 
 For Laravel projects there is an easy to install package available here: https://github.com/Five-Squared/Fluent-Laravel
 
@@ -89,7 +92,7 @@ $messageId = Fluent::message()->create()
 ### Use Cases ###
 
 #### Receipt Notification ####
-
+```
 $messageId = Fluent::message()->create()
     ->title('Receipt')
     ->paragraph('We have just processed payment of your monthly subscription.')
@@ -101,9 +104,9 @@ $messageId = Fluent::message()->create()
     ->header('Reply-To', 'me@myproject.com')
     ->to('user@theirdomain.com')
     ->send();
-
+```
 #### User Welcome ####
-
+```
 $messageId = Fluent::message()->create()
     ->title('Welcome')
     ->paragraph('Many thanks for you signing up for a trial of Appsome. We're happy to have you.')
@@ -115,9 +118,9 @@ $messageId = Fluent::message()->create()
     ->header('Reply-To', 'support@myproject.com')
     ->to('user@theirdomain.com')
     ->send();
-
+```
 #### Password Reset ####
-
+```
 $messageId = Fluent::message()->create()
     ->title('Password Reset')
     ->paragraph('We have received a request to change the password for your Appsome account. If you requested this change, please follow the link below to reset your password.')
@@ -128,9 +131,9 @@ $messageId = Fluent::message()->create()
     ->header('Reply-To', 'support@myproject.com')
     ->to('user@theirdomain.com')
     ->send();
-
+```
 ### Resending a message
-Resend the original message. Optionally specify a different recipient.
+In most cases resending an email notification is hard because it has to be recreated again, but the application state has since changed. With Fluent it is possible to simply resend a snapshot of the original message. Optionally specify a different recipient.
 ```
 $response = Fluent::message()->resend($messageId)
     ->to('other@theirdomain.com')
