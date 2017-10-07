@@ -40,6 +40,8 @@ class Resend
     }
     
     /**
+     * Execute PUT message request to API
+     * (last meethod in the chain)
      * @param string $transport
      */
     public function send()
@@ -63,6 +65,7 @@ class Resend
     }
     
     /**
+     * Supply alternative recipient address
      * @return \Fluent\Message
      */
     public function to($address, $name = null)

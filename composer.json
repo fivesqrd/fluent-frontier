@@ -1,5 +1,5 @@
 {
-	"name": "fivesqrd/fluent",
+	"name": "fluent/client",
 	"description": "The Fluent Messaging client library",
 	"require": {},
     "autoload": {
@@ -7,7 +7,6 @@
             "Fluent": "src/library"
         }
     },
-    "license": ["MIT"],
     "authors": [
    	    {
             "name": "Christian Burger",

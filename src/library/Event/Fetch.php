@@ -1,7 +1,7 @@
 <?php
-namespace Fluent\Message;
+namespace Fluent\Event;
 
-class Get
+class Fetch
 {
     protected $_api;
 
@@ -14,6 +14,6 @@ class Get
 
     public function fetch()
     {
-        return $this->_api->call('message', 'get', array('id' => $this->_id));
+        return $this->_api->call('event', 'get', array('id' => $this->_id));
     }
 }

@@ -13,7 +13,7 @@ class Factory
         'storage'   => 'sqlite'
     );
 
-    const VERSION = '3.4';
+    const VERSION = '4.0';
     
     /**
      * @param string $content

@@ -12,11 +12,11 @@ class Event
 
     /**
      * @param int $id
-     * @return \Fluent\Event\Get
+     * @return \Fluent\Event\Fetch
      */
-    public function get($id)
+    public function fetch($id)
     {
-        return new Event\Get(
+        return new Event\Fetch(
             new \Fluent\Api($this->_defaults['key'], $this->_defaults['secret']),
             $id
         );

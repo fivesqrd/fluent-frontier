@@ -91,28 +91,6 @@ class Markup
         return $this;
     }
 
-    protected function _getNumberElement($element, $number)
-    {
-        if (array_key_exists('value', $number)) {
-            $element->appendChild(
-                new \DOMElement('value', htmlentities($number['value']))
-            );
-        }
-
-        if (array_key_exists('caption', $number)) {
-            $element->appendChild(
-                new \DOMElement('caption', $number['caption'])  
-            );
-        }
-
-        return $element;
-    }
-
-    protected function _getCData($text)
-    {
-        return $this->_content->ownerDocument->createCDATASection($text);
-    }
-
     /**
      * @return string
      */
@@ -142,6 +120,28 @@ class Markup
     public function getTeaser()
     {
         return $this->_teaser;
+    }
+    
+    protected function _getNumberElement($element, $number)
+    {
+        if (array_key_exists('value', $number)) {
+            $element->appendChild(
+                new \DOMElement('value', htmlentities($number['value']))
+            );
+        }
+
+        if (array_key_exists('caption', $number)) {
+            $element->appendChild(
+                new \DOMElement('caption', $number['caption'])  
+            );
+        }
+
+        return $element;
+    }
+
+    protected function _getCData($text)
+    {
+        return $this->_content->ownerDocument->createCDATASection($text);
     }
     
     public function __toString()
