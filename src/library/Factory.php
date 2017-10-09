@@ -26,6 +26,15 @@ class Factory
     }
 
     /**
+     * @param array $defaults
+     * @return \Fluent\Event
+     */
+    public static function event(array $defaults = array())
+    {
+        return new Event(array_merge(self::$defaults, $defaults));
+    }
+
+    /**
      * Render a message locally.
      * @param \Fluent\Message\Create $message
      * @param array $options
@@ -40,14 +49,5 @@ class Factory
         }
 
         return Theme::factory('musimal', $content->toString())->getLayout($options);
-    }
-
-    /**
-     * @param array $defaults
-     * @return \Fluent\Event
-     */
-    public static function event(array $defaults = array())
-    {
-        return new Event(array_merge(self::$defaults, $defaults));
     }
 }
