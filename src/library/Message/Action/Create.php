@@ -37,24 +37,29 @@ class Create
     protected $_attachments = array();
     
     protected $_defaults = array();
-    
+
     public function __construct($content, $defaults = array())
     {
-        if ($content instanceof \Fluent\Template) {
-            $this->_content = $content->getContent();
-        } elseif ($content instanceof Content\Markup) {
-            $this->_content = $content;
-        } elseif ($content instanceof Content\Raw) {
-            $this->_content = $content;
-        } elseif ($content === null) {
-            $this->_content = new Content\Markup();
-        } elseif (is_string($content) && strstr($content, '<content>')) {
-            $this->_content = new Content\Markup($content);
-        } else {
-            $this->_content = new Content\Raw($content);
-        }
+        $this->_content = $this->_getContent($content);
 
         $this->_defaults = $defaults;
+    }
+
+    protected function _getContent($value)
+    {
+        if ($value instanceof \Fluent\Template) {
+            return $value->getContent();
+        } elseif ($value instanceof Content\Markup) {
+            return $value;
+        } elseif ($value instanceof Content\Raw) {
+            return $value;
+        } elseif ($value === null) {
+            return new Content\Markup();
+        } elseif (is_string($value) && strstr($value, '<content>')) {
+            return new Content\Markup($value);
+        } else {
+            return new Content\Raw($value);
+        }
     }
     
     protected function _getDefault($name, $fallback = null)
@@ -75,7 +80,7 @@ class Create
      * @param string $name
      * @param array $arguments
      * @throw \Fluent\Exception
-     * @return Fluent
+     * @return mixed
      */
     public function __call($name, $arguments)
     {
@@ -91,33 +96,26 @@ class Create
     }
     
     /**
-     * @param string $transport
+     * Call Fluent Web Service and return a message ID
+     * @return string $messageId
      */
-    public function send($transport = null)
+    public function send()
     {
-        if ($transport === null) {
-            $transport = $this->_getDefault('transport');
-        }
+        $api = new \Fluent\Api(
+            $this->_getDefault('key'), 
+            $this->_getDefault('secret'), 
+            $this->_getDefault('endpoint'), 
+            $this->_getDefault('debug')
+        );
 
-        switch (strtolower($transport)) {
-            case 'local':
-                $client = new Transport\Local($this->_defaults);
-                break;
-            default:
-                $client = new Transport\Remote(
-                    new \Fluent\Api(
-                        $this->_getDefault('key'), $this->_getDefault('secret'), $this->_getDefault('endpoint'), $this->_getDefault('debug')
-                    )
-                );
-                break;
-        }
-        
-        return $client->send($this);
+        $response = $api->call('message', 'create', $this->toArray());
+
+        return $response->_id;
     }
     
     
     /**
-     * @return \Fluent\Message
+     * @return \Fluent\Message\Action\Create
      */
     public function subject($value)
     {
@@ -126,7 +124,7 @@ class Create
     }
     
     /**
-     * @return \Fluent\Message
+     * @return \Fluent\Message\Action\Create
      */
     public function to($address, $name = null)
     {
@@ -145,7 +143,7 @@ class Create
      * @param string $name
      * @param string $contentType
      * @param string $content
-     * @return \Fluent\Message
+     * @return \Fluent\Message\Action\Create
      */
     public function attach($name, $type, $content)
     {
@@ -160,7 +158,7 @@ class Create
 
     /**
      * @param array $values
-     * @return \Fluent\Message
+     * @return \Fluent\Message\Action\Create
      */
     public function attachments(array $values)
     {
@@ -174,7 +172,7 @@ class Create
     /**
      * @param string $address
      * @param string $name
-     * @return \Fluent\Message
+     * @return \Fluent\Message\Action\Create
      */
     public function from($address, $name = null)
     {
@@ -193,7 +191,7 @@ class Create
      * 
      * @param string $name
      * @param string $value
-     * @return \Fluent\Message
+     * @return \Fluent\Message\Action\Create
      */
     public function option($name, $value)
     {
@@ -211,7 +209,7 @@ class Create
      * 
      * @param string $name
      * @param string $value
-     * @return \Fluent\Message
+     * @return \Fluent\Message\Action\Create
      */
     public function header($name, $value)
     {
@@ -222,7 +220,7 @@ class Create
     /**
      * 
      * @param array $values
-     * @return \Fluent\Message
+     * @return \Fluent\Message\Action\Create
      */
     public function headers(array $values)
     {
@@ -238,11 +236,12 @@ class Create
         if (isset($this->_sender['address']) && !empty($this->_sender['address'])) {
             return array('address' => $this->_sender['address'], 'name' => $this->_sender['name']);
         }
+
         return $this->_getDefault('sender');
     }
     
     /**
-     * @return \Fluent\Content
+     * @return \Fluent\Message\Action\Create
      */
     public function getContent()
     {

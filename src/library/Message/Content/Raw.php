@@ -1,5 +1,5 @@
 <?php
-namespace Fluent\Content;
+namespace Fluent\Message\Content;
 
 class Raw
 {

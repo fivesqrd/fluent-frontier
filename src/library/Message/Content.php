@@ -1,7 +1,5 @@
 <?php
-namespace Fluent;
-
-use Fluent\Content as Content;
+namespace Fluent\Message;
 
 class Content
 {
