@@ -20,7 +20,20 @@ class Message
      */
     public function create($content = null)
     {
-        return new Message\Create($content, $this->_defaults);
+        return new Message\Action\Create($content, $this->_defaults);
+    }
+
+    /**
+     * @param mixed $params
+     * @return string
+     */
+    public function send($template)
+    {
+        if (is_array($template)) {
+            $template = new Message\Dto($template);
+        }
+
+        return Message\Factory\Create::from($template, $this->_defaults)->send();
     }
 
     /**
@@ -29,17 +42,17 @@ class Message
      */
     public function resend($id)
     {
-        return new Message\Resend($id, $this->_defaults);
+        return new Message\Action\Resend($id, $this->_defaults);
     }
 
     /**
      * @param string $id
-     * @return \Fluent\Message\Get
+     * @return \Fluent\Message\Fetch
      */
-    public function get($id)
+    public function fetch($id)
     {
-        return new Message\Get(
-            new \Fluent\Api($this->_defaults['key'], $this->_defaults['secret']), $id
+        return new Message\Action\Fetch(
+            new Api($this->_defaults['key'], $this->_defaults['secret']), $id
         );
     } 
 
@@ -48,8 +61,8 @@ class Message
      */
     public function find()
     {
-        return new Message\Find(
-            new \Fluent\Api($this->_defaults['key'], $this->_defaults['secret'])
+        return new Message\Action\Find(
+            new Api($this->_defaults['key'], $this->_defaults['secret'])
         );
     } 
 }

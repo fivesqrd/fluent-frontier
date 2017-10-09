@@ -22,7 +22,24 @@ class Factory
      */
     public static function message(array $defaults = array())
     {
-        return new \Fluent\Message(array_merge(self::$defaults, $defaults));
+        return new Message(array_merge(self::$defaults, $defaults));
+    }
+
+    /**
+     * Render a message locally.
+     * @param \Fluent\Message\Create $message
+     * @param array $options
+     * @return \Fluent\Layout
+     */
+    public static function layout($message, $options = array())
+    {
+        $content = $message->getContent();
+
+        if ($content->getFormat() == 'raw') {
+            return $content;
+        }
+
+        return Theme::factory('musimal', $content->toString())->getLayout($options);
     }
 
     /**
@@ -31,6 +48,6 @@ class Factory
      */
     public static function event(array $defaults = array())
     {
-        return new \Fluent\Event(array_merge(self::$defaults, $defaults));
+        return new Event(array_merge(self::$defaults, $defaults));
     }
 }
