@@ -133,29 +133,6 @@ $messageId = (new Fluent\Message())->send([
 ```
 
 
-## Render Only ##
-By installing the open source licensed (GPL 3) [Musimal](https://github.com/fivesqrd/musimal) theme, it is possible to render the message body locally instead of via the Fluent Web Service:
-```
-composer require fluent/musimal:1.0
-```
-
-```
-$options => [
-    'logo'          => null,
-    'color'         => '#e74c3c',
-    'teaser'        => null,
-    'footer'        => null,
-];
-
-$message = (new Fluent\Message())->create()
-    ->title('My little pony')
-    ->paragraph('Lorem ipsum dolor sit amet, consectetur adipiscing elit.')
-    ->subject('Testing it');
-
-$html = Fluent\Factory::layout($message, $options)->render(); 
-```
-
-
 ## Additional Features ##
 
 Sending with custom headers
@@ -296,4 +273,27 @@ $messageId = (new Fluent\Message())->create(new Fluent\Message\Content\Raw($html
     ->header('Reply-To', 'me@myapp.com')
     ->to('user@theirdomain.com')
     ->send();
+```
+
+
+## Render Only ##
+By installing the open source licensed (GPL 3) [Musimal](https://github.com/fivesqrd/musimal) theme, it is possible to render the message body locally instead of via the Fluent Web Service:
+```
+composer require fluent/musimal:1.0
+```
+Pass the message object and theme options to render an HTML body locally:
+```
+$options = [
+    'logo'          => null,
+    'color'         => '#e74c3c',
+    'teaser'        => null,
+    'footer'        => null,
+];
+
+$message = (new Fluent\Message())->create()
+    ->title('My little pony')
+    ->paragraph('Lorem ipsum dolor sit amet, consectetur adipiscing elit.')
+    ->subject('Testing it');
+
+$html = Fluent\Factory::layout($message, $options)->render(); 
 ```
