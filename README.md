@@ -46,7 +46,7 @@ Below is a sample of an email body that uses many of the UI components list abov
 To make use of Fluent Web Service, you'll need a [Fluent](http://fluentmsg.com) account and the Fluent Client:
 
 ```
-composer require fivesqrd/fluent:4.0
+composer require fivesqrd/fluent:4.*
 ```
 
 For Laravel projects there is an easy to install package available

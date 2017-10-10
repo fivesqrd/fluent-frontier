@@ -1,10 +1,10 @@
 {
 	"name": "fivesqrd/fluent-client",
-	"description": "The Fluent Messaging client library",
+	"description": "Client side wrapper to the Fluent Web Service",
 	"require": {},
     "autoload": {
-        "psr-0": {
-            "Fluent": "src/library"
+        "psr-4": {
+            "Fluent\\": "src/library"
         }
     },
     "authors": [
