@@ -124,14 +124,14 @@ $message->number('$95.00');
 $message->number(['value' => '$95.00', 'caption' => 'Total']);
 ```
 
-A number block supports up to 3 numbers. Multiple numbers can be passed in a multi dimensional array:
+A number block supports up to 3 number columns. Multiple numbers can be passed as a multi dimensional array:
 ```
-/* Add a row of 3 numbers to the message body */
-$message->number(array(
+/* Add a row of 3 number columns to the message body */
+$message->numbers(array(
     ['value' => '$95.00', 'caption' => 'Sub Total'],
     ['value' => '$9.50', 'caption' => 'Tax'],
     ['value' => '$104.50', 'caption' => 'Total'],
-);
+));
 ```
 
 ### 5. button($url, $text)
@@ -147,6 +147,9 @@ Add a custom HTML segment block to the stack.
 /* Add a custom HTML block to the message body */
 $message->segment('<table><tr><td></td></tr></table>');
 ```
+
+Note: the logo and footer components are configured from the [Fluent Admin Console](http://fluentmsg.com).
+
 
 In addition to the UI methods, the following methods are provided to set up the delivery of the message at the same time:
 
@@ -189,7 +192,20 @@ $message->to('user@theirdomain.com');
 $message->attach('My-Attachment.pdf', 'application/pdf', file_get_contents($file))
 ```
 
-The logo and footer components are configured from the [Fluent Admin Console](http://fluentmsg.com).
+```
+/* Add multiple attachments to the message */
+$message->attachments(array(
+    ['name' => 'My-First-File.pdf', 'type' => 'application/pdf', 'content' => file_get_contents($file)],
+    ['name' => 'My-2nd-File.jpg', 'type' => 'image/jpg', 'content' => file_get_contents($file2)],
+));
+```
+
+### 12. send()
+Send is the final method of the chain and should always be called last. It delivers to message to the Fluent Web Service and returns a unique message ID.
+```
+/* Send the message */
+$messageId = $message->send();
+```
 
 ## Examples ##
 Double action: Create and send 

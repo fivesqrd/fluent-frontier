@@ -1,6 +1,8 @@
 <?php
 namespace Fluent\Message\Content;
 
+use Fluent\Exception;
+
 class Markup
 {
     protected $_title;
@@ -23,7 +25,7 @@ class Markup
     
     /**
      * @param string $text
-     * @return \Fluent\Content\Markup
+     * @return \Fluent\Message\Content\Markup
      */
     public function title($text)
     {
@@ -33,7 +35,7 @@ class Markup
     
     /**
      * @param string $text
-     * @return \Fluent\Content\Markup
+     * @return \Fluent\Message\Content\Markup
      */
     public function paragraph($text)
     {
@@ -45,7 +47,7 @@ class Markup
 
     /**
      * @param string $text
-     * @return \Fluent\Content\Markup
+     * @return \Fluent\Message\Content\Markup
      */
     public function segment($string)
     {
@@ -54,23 +56,13 @@ class Markup
         $element->appendChild($this->_getCData($string));
         return $this;
     }
-    
+
     /**
      * @param array $numbers Up to 3 number/caption pairs
-     * @return \Fluent\Content\Markup
+     * @return \Fluent\Message\Content\Markup
      */
-    public function number($numbers)
+    public function numbers($numbers)
     {
-        if (is_string($numbers) || is_numeric($numbers)) {
-            /* we have been given a number only */
-            $numbers = array(array('value' => $numbers));
-        }
-
-        if (array_key_exists('value', $numbers)) {
-            /* we have been given one number only */
-            $numbers = array($numbers);
-        }
-        
         $parent = $this->_content
             ->appendChild(new \DOMElement('numbers'));
 
@@ -82,11 +74,36 @@ class Markup
 
         return $this;
     }
+    
+    /**
+     * @param array $number A number/caption pair
+     * @return \Fluent\Message\Content\Markup
+     */
+    public function number($number)
+    {
+        if (is_string($number) || is_numeric($number)) {
+            /* we have been given a number only */
+            $number = array('value' => $number);
+        }
+
+        if (!array_key_exists('value', $number)) {
+            throw new Exception('Number requires a value element');
+        }
+        
+        $parent = $this->_content
+            ->appendChild(new \DOMElement('numbers'));
+
+        $element = $this->_getNumberElement(
+            $parent->appendChild(new \DOMElement('number')), $number
+        );
+
+        return $this;
+    }
 
     /**
      * @param string $href
      * @param string $text
-     * @return \Fluent\Content\Markup
+     * @return \Fluent\Message\Content\Markup
      */
     public function button($href, $text)
     {
