@@ -111,7 +111,7 @@ Add a paragraph block to the stack. The input value can contain HTML elements.
 $message->paragraph('Lorem <a href="#">ipsum dolor</a> sit amet, <b>consectetur</b> adipiscing elit.');
 ```
 
-### number($value)
+### number($value) or numbers($values)
 Add a number block to the stack. A number consists of a value and an optional caption.
 
 ```
@@ -159,7 +159,7 @@ In addition to the UI methods, the following methods are provided to set up the 
 $message->subject('Lorem ipsum dolor');
 ```
 
-### header($key, $value)
+### header($key, $value) or headers($values)
 ```
 /* Add a header to the message */
 $message->header('Reply-To', 'me@myapp.com');
@@ -186,7 +186,7 @@ Note: only one recipient can be provided per message.
 $message->to('user@theirdomain.com');
 ```
 
-### attach($filename, $mimetype, $blob)
+### attach($filename, $mimetype, $blob) or attachments($values)
 ```
 /* Add an attachment to the message */
 $message->attach('My-Attachment.pdf', 'application/pdf', file_get_contents($file))
