@@ -1,5 +1,5 @@
 <?php
-namespace Fluent\Message;
+namespace Fluent\Message\Action;
 
 /**
  *
