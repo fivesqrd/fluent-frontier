@@ -8,7 +8,7 @@ class Theme
         switch ($theme) {
             case 'musimal':
 
-                if (!class_exists('\\Fluent\\Theme\\\Musimal')) {
+                if (!class_exists('\\Fluent\\Theme\\Musimal')) {
                     throw new Exception('The fluent/musimal package is required to render messages locally, but has not been installed');
                 }
 
