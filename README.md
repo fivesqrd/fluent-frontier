@@ -231,16 +231,6 @@ $messageId = (new Fluent\Message())->create()
     ->send(); ;
 ```
 
-
-## Templates ##
-Keeping code clean by generating a message from a pre-built template class:
-```
-$messageId = (new Fluent\Message())->send(
-    new MyApp/Notification/Shipped($params)
-); 
-```
-
-
 ## Delivering pre-built content ##
 In some cases one may need to seperate the message creation from the delivery. The send() method 
 as shortcut to deliver aready built message content: 
