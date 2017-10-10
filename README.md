@@ -46,7 +46,7 @@ Below is a sample of an email body that uses many of the UI components list abov
 To make use of Fluent Web Service, you'll need a [Fluent](http://fluentmsg.com) account and the Fluent Client:
 
 ```
-composer require fivesqrd/fluent-client:4.0
+composer require fivesqrd/fluent:4.0
 ```
 
 For Laravel projects there is an easy to install package available
@@ -85,6 +85,111 @@ $message = Fluent\Factory::message()->create();
 $events = Fluent\Factory::event()->create();
 
 ```
+
+## Message Creation Methods ##
+For creating messages there is a method available for each UI component listed above. Some UI components exists only ones and can only be set once, 
+others can be called multiple times to build up the message body:
+
+### 1. teaser($text)
+Set the text visible in previews but hidden when the message is opened. A message can only have one teaser.
+```
+/* Set the teaser of the message */
+$message->teaser('Inside you will find your welcome pack');
+```
+
+### 2. title($text)
+Set the title of the message body. A message can only have one title. Limit to one or two words as the title is presented in quite a large font size.
+```
+/* Set the title of the message */
+$message->title('Welcome');
+```
+
+### 3. paragraph($text)
+Add a paragraph block to the stack. The input value can contain HTML elements.
+```
+/* Add a paragraph of text to the message body */
+$message->paragraph('Lorem <a href="#">ipsum dolor</a> sit amet, <b>consectetur</b> adipiscing elit.');
+```
+
+### 4. number($value)
+Add a number block to the stack. A number consists of a value and an optional caption.
+
+```
+/* Add a number to the message body */
+$message->number('$95.00');
+```
+
+```
+/* Add a number/caption pair to the message body */
+$message->number(['value' => '$95.00', 'caption' => 'Total']);
+```
+
+A number block supports up to 3 numbers. Multiple numbers can be passed in a multi dimensional array:
+```
+/* Add a row of 3 numbers to the message body */
+$message->number(array(
+    ['value' => '$95.00', 'caption' => 'Sub Total'],
+    ['value' => '$9.50', 'caption' => 'Tax'],
+    ['value' => '$104.50', 'caption' => 'Total'],
+);
+```
+
+### 5. button($url, $text)
+Add a number block to the stack. A button consists of an URL and a call to action text. 
+```
+/* Add a call to action button to the message body */
+$message->button('http://fluentmsg.com', 'Go to Website');
+```
+
+### 6. segment($text)
+Add a custom HTML segment block to the stack.
+```
+/* Add a custom HTML block to the message body */
+$message->segment('<table><tr><td></td></tr></table>');
+```
+
+In addition to the UI methods, the following methods are provided to set up the delivery of the message at the same time:
+
+### 7. subject($text)
+```
+/* Add a subject to the message */
+$message->subject('Lorem ipsum dolor');
+```
+
+### 8. header($key, $value)
+```
+/* Add a header to the message */
+$message->header('Reply-To', 'me@myapp.com');
+```
+
+```
+/* Add multiple headers to the message */
+$message->headers(array(
+    'Reply-To', 'me@myapp.com',
+    'X-Fluent', 'lorem'
+));
+```
+
+### 9. from($address, $name = null)
+```
+/* Set the sender address and name */
+$message->from('me@myapp.com', 'My App');
+```
+    
+### 10. to($address, $name = null)
+Note: only one recipient can be provided per message.
+```
+/* Set the recipient address and name */
+$message->to('user@theirdomain.com');
+```
+
+### 11. attach($filename, $mimetype, $blob)
+```
+/* Add an attachment to the message */
+$message->attach('My-Attachment.pdf', 'application/pdf', file_get_contents($file))
+```
+
+The logo and footer components are configured from the [Fluent Admin Console](http://fluentmsg.com).
 
 ## Examples ##
 Double action: Create and send 

@@ -59,8 +59,13 @@ class Markup
      * @param array $numbers Up to 3 number/caption pairs
      * @return \Fluent\Content\Markup
      */
-    public function number(array $numbers)
+    public function number($numbers)
     {
+        if (is_string($numbers) || is_numeric($numbers)) {
+            /* we have been given a number only */
+            $numbers = array(array('value' => $numbers));
+        }
+
         if (array_key_exists('value', $numbers)) {
             /* we have been given one number only */
             $numbers = array($numbers);
