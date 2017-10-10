@@ -46,20 +46,20 @@ Below is a sample of an email body that uses many of the UI components list abov
 To make use of Fluent Web Service, you'll need a [Fluent](http://fluentmsg.com) account and the Fluent Client:
 
 ```
-composer require fluent/client:4.0
+composer require fivesqrd/fluent-client:4.0
 ```
 
 For Laravel projects there is an easy to install package available
 ```
-composer require fluent/laravel
+composer require fivesqrd/fluent-laravel
 ```
 
-More info available here: https://github.com/fivesqrd/fluent-laravel
+More info on the Laravel config options and the Fluent facade is available here: https://github.com/fivesqrd/fluent-laravel
 
 
 ## Instantiating Objects ##
 
-Passing config to the Message object:
+Passing config to the Message object at run time:
 ```
 $config = [
     'key'           => null, // Fluent access key
@@ -72,7 +72,7 @@ $message = (new Fluent\Message($config))->create();
 $events = (new Fluent\Event($config))->find();
 ```
 
-Using the Factory class it's possible to preload config at startup:
+It is possible to preload config at startup using the Factory class:
 ```
 Fluent\Factory::$defaults = [
     'key'           => null, // Fluent access key
@@ -111,8 +111,8 @@ $messageId = (new Fluent\Message())->create()
 ```
 
 
-## Template Classes ##
-Keeping code clean by generating a message from a pre-built template
+## Templates ##
+Keeping code clean by generating a message from a pre-built template class:
 ```
 $messageId = (new Fluent\Message())->send(
     new MyApp/Notification/Shipped($params)
@@ -252,7 +252,7 @@ $response = (new Fluent\Event())->find()
     ->fetch();
 ```
 
-## Alternative Formts
+## Alternative Formats
 Somtimes you need to send plain text or custom HTML emails. Fluent provides a way to do this:
 
 ### Plain Text ###
@@ -266,7 +266,7 @@ $messageId = (new Fluent\Message())->create('This is my plain text message body'
 
 ### Custom HTML ###
 ```
-$html = '<html><body><p>This is my plain text message body</p></html></body>';
+$html = '<html><body><p>This is my custom HTML message body</p></html></body>';
 
 $messageId = (new Fluent\Message())->create(new Fluent\Message\Content\Raw($html))
     ->subject('Testing it')
@@ -279,7 +279,7 @@ $messageId = (new Fluent\Message())->create(new Fluent\Message\Content\Raw($html
 ## Render Only ##
 By installing the open source licensed (GPL 3) [Musimal](https://github.com/fivesqrd/musimal) theme, it is possible to render the message body locally instead of via the Fluent Web Service:
 ```
-composer require fluent/musimal:1.0
+composer require fivesqrd/fluent-musimal:1.0
 ```
 Pass the message object and theme options to render an HTML body locally:
 ```
