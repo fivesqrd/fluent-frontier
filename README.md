@@ -90,28 +90,28 @@ $events = Fluent\Factory::event()->create();
 For creating messages there is a method available for each UI component listed above. Some UI components exists only ones and can only be set once, 
 others can be called multiple times to build up the message body:
 
-### 1. teaser($text)
+### teaser($text)
 Set the text visible in previews but hidden when the message is opened. A message can only have one teaser.
 ```
 /* Set the teaser of the message */
-$message->teaser('Inside you will find your welcome pack');
+$message->teaser('Your receipt details inside');
 ```
 
-### 2. title($text)
+### title($text)
 Set the title of the message body. A message can only have one title. Limit to one or two words as the title is presented in quite a large font size.
 ```
 /* Set the title of the message */
-$message->title('Welcome');
+$message->title('Receipt');
 ```
 
-### 3. paragraph($text)
+### paragraph($text)
 Add a paragraph block to the stack. The input value can contain HTML elements.
 ```
 /* Add a paragraph of text to the message body */
 $message->paragraph('Lorem <a href="#">ipsum dolor</a> sit amet, <b>consectetur</b> adipiscing elit.');
 ```
 
-### 4. number($value)
+### number($value)
 Add a number block to the stack. A number consists of a value and an optional caption.
 
 ```
@@ -134,14 +134,14 @@ $message->numbers(array(
 ));
 ```
 
-### 5. button($url, $text)
-Add a number block to the stack. A button consists of an URL and a call to action text. 
+### button($url, $text)
+Add a call to action button block to the stack. A button consists of a URL and the call to action text. 
 ```
 /* Add a call to action button to the message body */
-$message->button('http://fluentmsg.com', 'Go to Website');
+$message->button('http://myap.com/download/key', 'Download Invoice');
 ```
 
-### 6. segment($text)
+### segment($text)
 Add a custom HTML segment block to the stack.
 ```
 /* Add a custom HTML block to the message body */
@@ -153,13 +153,13 @@ Note: the logo and footer components are configured from the [Fluent Admin Conso
 
 In addition to the UI methods, the following methods are provided to set up the delivery of the message at the same time:
 
-### 7. subject($text)
+### subject($text)
 ```
 /* Add a subject to the message */
 $message->subject('Lorem ipsum dolor');
 ```
 
-### 8. header($key, $value)
+### header($key, $value)
 ```
 /* Add a header to the message */
 $message->header('Reply-To', 'me@myapp.com');
@@ -173,20 +173,20 @@ $message->headers(array(
 ));
 ```
 
-### 9. from($address, $name = null)
+### from($address, $name = null)
 ```
 /* Set the sender address and name */
 $message->from('me@myapp.com', 'My App');
 ```
     
-### 10. to($address, $name = null)
+### to($address, $name = null)
 Note: only one recipient can be provided per message.
 ```
 /* Set the recipient address and name */
 $message->to('user@theirdomain.com');
 ```
 
-### 11. attach($filename, $mimetype, $blob)
+### attach($filename, $mimetype, $blob)
 ```
 /* Add an attachment to the message */
 $message->attach('My-Attachment.pdf', 'application/pdf', file_get_contents($file))
@@ -200,7 +200,7 @@ $message->attachments(array(
 ));
 ```
 
-### 12. send()
+### send()
 Send is the final method of the chain and should always be called last. It delivers to message to the Fluent Web Service and returns a unique message ID.
 ```
 /* Send the message */
