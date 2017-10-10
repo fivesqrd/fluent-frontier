@@ -14,8 +14,8 @@ namespace Fluent\Message\Action;
  * @method \Fluent\Message\Create segment(string $value)
  */
 
-use Fluent\Content;
-use Fluent\Transport;
+use Fluent\Message\Content;
+use Fluent\Message\Template;
 use Fluent\Exception;
 
 class Create
@@ -48,7 +48,7 @@ class Create
 
     protected function _getContent($value)
     {
-        if ($value instanceof \Fluent\Template) {
+        if ($value instanceof Template) {
             return $value->getContent();
         } elseif ($value instanceof Content\Markup) {
             return $value;
