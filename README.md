@@ -1,4 +1,4 @@
-Fluent for PHP
+Fluent Jit for PHP
 ============
 Fluent generates beautiful and responsive transactional email notifications quickly with minimal markup. It's great for user notifications like password resets, user welcomes, receipts, shipping notifications, etc.
 
