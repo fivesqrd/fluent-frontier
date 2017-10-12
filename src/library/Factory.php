@@ -33,21 +33,4 @@ class Factory
     {
         return new Event(array_merge(self::$defaults, $defaults));
     }
-
-    /**
-     * Render a message locally.
-     * @param \Fluent\Message\Create $message
-     * @param array $options
-     * @return \Fluent\Layout
-     */
-    public static function layout($message, $options = array())
-    {
-        $content = $message->getContent();
-
-        if ($content->getFormat() == 'raw') {
-            return $content;
-        }
-
-        return Theme::factory('musimal', $content->toString())->getLayout($options);
-    }
 }
