@@ -5,13 +5,6 @@ namespace Fluent\Message\Action;
  *
  * @author cjb
  *
- * @method \Fluent\Message\Create title(string $text)
- * @method \Fluent\Message\Create paragraph(string $text)
- * @method \Fluent\Message\Create button(string $href, string $text)
- * @method \Fluent\Message\Create number(array $number)
- * @method \Fluent\Message\Create numbers(array $numbers)
- * @method \Fluent\Message\Create teaser(string $value)
- * @method \Fluent\Message\Create segment(string $value)
  */
 
 use Fluent\Message\Content;

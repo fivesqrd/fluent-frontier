@@ -1,9 +1,7 @@
 <?php
-namespace Fluent\Message\Content;
+namespace Fluent;
 
-use Fluent\Exception;
-
-class Markup
+class Body
 {
     protected $_title;
     
@@ -11,14 +9,12 @@ class Markup
     
     protected $_content;
 
-    public function __construct($content = null)
+    public function __construct($options = array())
     {
+        $this->_options = array_merge($this->_defaults, $options);
+
         $xml = new \DOMDocument();
-        if ($content) {
-            $xml->loadXML($content);
-        } else {
-            $xml->appendChild(new \DOMElement('content'));
-        }
+        $xml->appendChild(new \DOMElement('content'));
 
         $this->_content = $xml->childNodes->item(0);
     }
@@ -113,6 +109,17 @@ class Markup
         return $this;
     }
 
+    public function teaser($text)
+    {
+        $this->_teaser = $text;
+        return $this;
+    }
+    
+    public function getTeaser()
+    {
+        return $this->_teaser;
+    }
+    
     /**
      * @return string
      */
@@ -126,22 +133,6 @@ class Markup
 
         $doc = $this->_content->ownerDocument;
         return $doc->saveXml();
-    }
-
-    public function teaser($text)
-    {
-        $this->_teaser = $text;
-        return $this;
-    }
-
-    public function getFormat()
-    {
-        return 'markup';
-    }
-    
-    public function getTeaser()
-    {
-        return $this->_teaser;
     }
     
     protected function _getNumberElement($element, $number)

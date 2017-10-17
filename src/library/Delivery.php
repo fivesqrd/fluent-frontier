@@ -5,7 +5,7 @@ namespace Fluent;
  *
  * @author cjb
  */
-class Message
+class Delivery
 {
     protected $_defaults;
 
@@ -15,25 +15,25 @@ class Message
     }
     
     /**
-     * @param mixed $content
+     * @param mixed $template
      * @return \Fluent\Message\Create
      */
-    public function create($content = null)
+    public function create($template = null)
     {
-        return new Message\Action\Create($content, $this->_defaults);
+        if ($template) {
+            return (new Message\Factory\Template($template))->create($this->_defaults);
+        }
+
+        return new Message\Action\Create($this->_defaults);
     }
 
     /**
-     * @param mixed $params
-     * @return string
+     * @param mixed $template
+     * @return \Fluent\Message\Create
      */
-    public function send($template)
+    public function from(Fluent\Template $object)
     {
-        if (is_array($template)) {
-            $template = new Message\Dto($template);
-        }
-
-        return Message\Factory\Create::from($template, $this->_defaults)->send();
+        return (new Delivery\Factory\Template($template))->create($this->_defaults);
     }
 
     /**

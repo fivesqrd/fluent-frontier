@@ -3,13 +3,21 @@ namespace Fluent\Message\Factory;
 
 use Fluent\Action;
 
-class Create
+class Template
 {
-    public static function from($template, $defaults)
+    public function __construct($template)
     {
-        $message = new Action\Create(
-            $template->getContent(), $defaults
-        );
+
+    }
+
+
+    public static function create($defaults)
+    {
+        $message = new Action\Create($defaults);
+
+        if ($template->getContent()) {
+            $message->content($template->getContent());
+        }
 
         if ($template->getSubject()) {
             $message->subject($template->getSubject());
