@@ -63,7 +63,7 @@ One can easily deliver the message by combining the message body with the Fluent
 $body = (new Fluent\Body())
     ->title('My little pony')
     ->paragraph('Lorem ipsum dolor sit amet, consectetur adipiscing elit.')
-    ->number(['caption' => 'Today', value => date('j M Y')])
+    ->number(['caption' => 'Today', 'value' => date('j M Y')])
     ->button('http://www.mypony.com', 'Like my pony')
     ->paragraph('Pellentesque habitant morbi tristique senectus et netus et malesuada fames.');
 
@@ -245,7 +245,7 @@ $options = array(
 $body = (new Fluent\Body())
     ->title('My little pony')
     ->paragraph('Lorem ipsum dolor sit amet, consectetur adipiscing elit.')
-    ->number(['caption' => 'Today', value => date('j M Y')])
+    ->number(['caption' => 'Today', 'value' => date('j M Y')])
     ->button('http://www.mypony.com', 'Like my pony')
     ->paragraph('Pellentesque habitant morbi tristique senectus et netus et malesuada fames.');
 
