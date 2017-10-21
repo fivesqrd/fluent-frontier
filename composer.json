@@ -4,7 +4,7 @@
 	"require": {},
     "autoload": {
         "psr-4": {
-            "Fluent\\": "src/library"
+            "Fluent\\": "src"
         }
     },
     "authors": [
