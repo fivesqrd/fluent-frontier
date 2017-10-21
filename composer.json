@@ -1,5 +1,5 @@
 {
-	"name": "fivesqrd/fluent-jit",
+	"name": "fivesqrd/fluent-client",
 	"description": "Client side wrapper to the Fluent Web Service",
 	"require": {},
     "autoload": {
