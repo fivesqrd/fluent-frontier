@@ -1,5 +1,5 @@
 {
-	"name": "fivesqrd/fluent-client",
+	"name": "fivesqrd/fluent-frontier",
 	"description": "Client side wrapper to the Fluent Web Service",
 	"require": {},
     "autoload": {
